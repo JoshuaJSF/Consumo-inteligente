@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Energia do Bairro — Eficiência Energética e Consumo Consciente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F7F3E8;
+    --paper-dim: #EFE9D8;
+    --ink: #1E2A22;
+    --ink-soft: #47543C;
+    --sol: #D98E2B;
+    --sol-deep: #B9701A;
+    --verde: #3C6B4C;
+    --verde-deep: #294A34;
+    --azul: #28455A;
+    --linha: #D9CDB0;
+    --branco: #FFFDF7;
+    --radius: 4px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  a{ color: inherit; }
+
+  img, svg{ display:block; max-width:100%; }
+
+  .wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Header / Masthead ---------- */
+
+  .masthead{
+    border-bottom: 3px solid var(--ink);
+    background: var(--paper);
+  }
+  .masthead-inner{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 22px 28px;
+    max-width: 1080px;
+    margin: 0 auto;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .brand-mark{
+    width: 40px; height: 40px;
+    flex-shrink:0;
+  }
+  .brand-text{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size: 1.3rem;
+    line-height: 1.05;
+  }
+  .brand-text span{
+    display:block;
+    font-family:'Archivo', sans-serif;
+    font-weight: 500;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.01em;
+    margin-top: 2px;
+  }
+  nav{
+    display:flex;
+    gap: 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  nav a{
+    text-decoration:none;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 3px;
+    transition: border-color .15s ease;
+  }
+  nav a:hover, nav a:focus-visible{ border-color: var(--sol); }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    padding: 64px 0 56px;
+    border-bottom: 3px solid var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items:center;
+  }
+  .hero-eyebrow{
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--verde-deep);
+    margin-bottom: 14px;
+  }
+  .hero h1{
+    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+    line-height: 1.06;
+    max-width: 16ch;
+  }
+  .hero p.lede{
+    margin-top: 22px;
+    font-size: 1.12rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+  .hero-actions{
+    margin-top: 30px;
+    display:flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn{
+    display:inline-block;
+    padding: 13px 22px;
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration:none;
+    border: 2px solid var(--ink);
+    transition: transform .12s ease, background .15s ease;
+  }
+  .btn-primary{
+    background: var(--sol);
+    color: var(--ink);
+  }
+  .btn-primary:hover{ background: var(--sol-deep); color: var(--branco); transform: translateY(-1px); }
+  .btn-ghost{
+    background: transparent;
+    color: var(--ink);
+  }
+  .btn-ghost:hover{ background: var(--ink); color: var(--paper); transform: translateY(-1px); }
+
+  .hero-art{
+    animation: rise .9s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes rise{
+    from{ opacity:0; transform: translateY(18px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-art{ animation: none; }
+  }
+
+  /* ---------- Painel / seção genérica de boletim ---------- */
+
+  section{
+    padding: 64px 0;
+    border-bottom: 1px solid var(--linha);
+  }
+  section.no-border{ border-bottom: none; }
+
+  .section-head{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 34px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 14px;
+  }
+  .section-head h2{
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  }
+  .section-head .tag{
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  /* ---------- Por que importa: números do bairro ---------- */
+
+  .stat-row{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 2px solid var(--ink);
+    border-radius: var(--radius);
+    overflow:hidden;
+  }
+  .stat{
+    padding: 26px 24px;
+    border-right: 2px solid var(--ink);
+  }
+  .stat:last-child{ border-right:none; }
+  .stat .num{
+    font-family:'Fraunces', serif;
+    font-size: 2.3rem;
+    font-weight: 600;
+    color: var(--verde-deep);
+  }
+  .stat p{
+    margin: 8px 0 0;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+  .stat-note{
+    margin-top: 14px;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Checklist de dicas (sequência real: aplicar em ordem de esforço) ---------- */
+
+  .checklist{
+    display:flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 2px solid var(--ink);
+  }
+  .check-item{
+    display:grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 22px 4px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .check-num{
+    font-family:'Fraunces', serif;
+    font-size: 1.6rem;
+    color: var(--sol-deep);
+  }
+  .check-item h3{
+    font-size: 1.08rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .check-item p{
+    margin:0;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    max-width: 56ch;
+  }
+  .check-impact{
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border: 2px solid var(--verde-deep);
+    color: var(--verde-deep);
+    border-radius: 999px;
+    white-space:nowrap;
+    justify-self:end;
+  }
+
+  /* ---------- Consumo consciente: painel dividido ---------- */
+
+  .split{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .split-col h3{
+    font-size: 1.15rem;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .split-col ul{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+    gap: 14px;
+  }
+  .split-col li{
+    padding-left: 22px;
+    position: relative;
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+  }
+  .split-col li::before{
+    content:"";
+    position:absolute;
+    left:0; top: 8px;
+    width: 8px; height: 8px;
+    background: var(--sol);
+  }
+  .split-col.consciente li::before{ background: var(--azul); }
+  .split-col li strong{ color: var(--ink); }
+
+  /* ---------- Medidor ilustrado (elemento central da página) ---------- */
+
+  .medidor-block{
+    display:grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 48px;
+    align-items:center;
+    background: var(--verde-deep);
+    color: var(--paper);
+    border-radius: var(--radius);
+    padding: 46px;
+  }
+  .medidor-block h2{ color: var(--paper); }
+  .medidor-block p{ color: #D9E5D5; }
+  .medidor-block .section-head{ display:none; }
+  .medidor-copy .tag{
+    font-weight:600;
+    font-size: 0.85rem;
+    color: var(--sol);
+    margin-bottom: 12px;
+    display:block;
+  }
+  .medidor-copy p{
+    margin-top: 16px;
+    max-width: 44ch;
+  }
+  .medidor-copy .btn-primary{ margin-top: 22px; }
+
+  /* ---------- Ações no bairro ---------- */
+
+  .acoes-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .acao{
+    border: 2px solid var(--ink);
+    border-radius: var(--radius);
+    padding: 26px;
+    display:flex;
+    flex-direction:column;
+    gap: 12px;
+  }
+  .acao .icon{ width: 34px; height: 34px; }
+  .acao h3{ font-size: 1.05rem; }
+  .acao p{ margin:0; color: var(--ink-soft); font-size: 0.93rem; }
+
+  /* ---------- Simulador simples ---------- */
+
+  .sim{
+    background: var(--paper-dim);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius);
+    padding: 32px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items:center;
+  }
+  .sim label{
+    display:block;
+    font-weight:700;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+  .sim input[type=range]{
+    width: 100%;
+    accent-color: var(--sol-deep);
+  }
+  .sim .valor{
+    font-family:'Fraunces', serif;
+    font-size: 1.3rem;
+    color: var(--verde-deep);
+    margin-top: 6px;
+  }
+  .sim-result{
+    background: var(--branco);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius);
+    padding: 22px;
+  }
+  .sim-result .label{
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+  .sim-result .big{
+    font-family:'Fraunces', serif;
+    font-size: 2.2rem;
+    color: var(--verde-deep);
+    margin: 6px 0;
+  }
+  .sim-result .small{ font-size: 0.85rem; color: var(--ink-soft); }
+
+  /* ---------- Rodapé ---------- */
+
+  footer{
+    background: var(--ink);
+    color: var(--paper);
+    padding: 48px 0 28px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 32px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(247,243,232,0.2);
+  }
+  .footer-grid-2{
+    grid-template-columns: 1.4fr 1fr;
+  }
+  footer h4{
+    font-family:'Fraunces', serif;
+    font-size: 1.05rem;
+    margin-bottom: 14px;
+    color: var(--paper);
+  }
+  footer p, footer a{
+    color: #C9D0C3;
+    font-size: 0.92rem;
+    text-decoration:none;
+  }
+  footer ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .footer-bottom{
+    display:flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    font-size: 0.82rem;
+    color: #A7B09E;
+    flex-wrap:wrap;
+    gap: 10px;
+  }
+
+  /* ---------- Responsivo ---------- */
+
+  @media (max-width: 880px){
+    .footer-grid-2{ grid-template-columns: 1fr; }
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-art{ order:-1; max-width: 280px; margin: 0 auto; }
+    .stat-row{ grid-template-columns: 1fr; }
+    .stat{ border-right:none; border-bottom: 2px solid var(--ink); }
+    .stat:last-child{ border-bottom:none; }
+    .split{ grid-template-columns: 1fr; gap: 30px; }
+    .medidor-block{ grid-template-columns: 1fr; padding: 30px; }
+    .acoes-grid{ grid-template-columns: 1fr; }
+    .sim{ grid-template-columns: 1fr; }
+    .footer-grid{ grid-template-columns: 1fr; gap: 24px; }
+    .check-item{ grid-template-columns: 40px 1fr; }
+    .check-impact{ grid-column: 1 / -1; justify-self:start; margin-top: 6px; }
+    nav{ display:none; }
+  }
+
+  :focus-visible{ outline: 3px solid var(--azul); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <path d="M20 4 L36 16 V36 H4 V16 Z" fill="var(--sol)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M22 14 L14 24 H19 L17 32 L27 20 H21 Z" fill="var(--ink)"/>
+      </svg>
+      <div class="brand-text">Energia do Bairro
+        <span>eficiência energética &amp; consumo consciente</span>
+      </div>
+    </div>
+    <nav>
+      <a href="#por-que">Por que importa</a>
+      <a href="#eficiencia">Eficiência</a>
+      <a href="#consciente">Consumo</a>
+      <a href="#simulador">Simulador</a>
+      <a href="#acoes">Ações</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero no-border">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="hero-eyebrow">Um projeto para quem mora aqui</p>
+      <h1>A conta de luz do bairro também se resolve na rua, não só dentro de casa.</h1>
+      <p class="lede">Reunimos o que funciona de verdade para gastar menos energia e consumir com mais consciência — pensado para as casas, os comércios e as ruas do nosso bairro, não para uma cartilha genérica.</p>
+      <div class="hero-actions">
+        <a href="#eficiencia" class="btn btn-primary">Ver as dicas de eficiência</a>
+        <a href="#acoes" class="btn btn-ghost">Participar de uma ação</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 360 300" width="100%">
+        <rect x="10" y="150" width="90" height="120" fill="var(--paper-dim)" stroke="var(--ink)" stroke-width="2"/>
+        <polygon points="5,150 55,105 105,150" fill="var(--verde)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="35" y="190" width="20" height="30" fill="var(--azul)"/>
+        <rect x="70" y="190" width="14" height="14" fill="var(--branco)" stroke="var(--ink)" stroke-width="1.5"/>
+        <line x1="45" y1="115" x2="60" y2="95" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="55" y1="118" x2="55" y2="95" stroke="var(--ink)" stroke-width="2"/>
+
+        <rect x="130" y="120" width="110" height="150" fill="var(--branco)" stroke="var(--ink)" stroke-width="2"/>
+        <polygon points="123,120 185,68 247,120" fill="var(--sol)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="150" y="170" width="60" height="30" fill="var(--paper-dim)" stroke="var(--ink)" stroke-width="1.5"/>
+        <rect x="150" y="215" width="24" height="55" fill="var(--azul)"/>
+        <rect x="185" y="215" width="18" height="18" fill="var(--sol)" stroke="var(--ink)" stroke-width="1.5"/>
+        <g stroke="var(--ink)" stroke-width="1.5">
+          <line x1="158" y1="90" x2="150" y2="105"/>
+          <line x1="185" y1="80" x2="185" y2="105"/>
+          <line x1="212" y1="90" x2="220" y2="105"/>
+        </g>
+        <circle cx="185" cy="70" r="10" fill="var(--sol)" stroke="var(--ink)" stroke-width="2"/>
+
+        <rect x="260" y="165" width="85" height="105" fill="var(--paper-dim)" stroke="var(--ink)" stroke-width="2"/>
+        <polygon points="255,165 302,130 349,165" fill="var(--azul)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="280" y="200" width="18" height="18" fill="var(--branco)" stroke="var(--ink)" stroke-width="1.5"/>
+        <rect x="308" y="200" width="18" height="18" fill="var(--branco)" stroke="var(--ink)" stroke-width="1.5"/>
+        <rect x="290" y="235" width="30" height="35" fill="var(--sol-deep)"/>
+
+        <line x1="0" y1="270" x2="360" y2="270" stroke="var(--ink)" stroke-width="2"/>
+        <path d="M0,270 C40,260 60,260 100,270" stroke="var(--verde-deep)" stroke-width="2" fill="none"/>
+        <path d="M240,270 C280,262 320,262 360,270" stroke="var(--verde-deep)" stroke-width="2" fill="none"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="por-que">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Por que isso importa aqui</h2>
+      <span class="tag">Números que qualquer morador reconhece</span>
+    </div>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="num">≈ 1/3</div>
+        <p>da conta de luz de uma casa costuma vir de chuveiro elétrico e geladeira antiga funcionando fora do ponto ideal.</p>
+      </div>
+      <div class="stat">
+        <div class="num">R$ 0</div>
+        <p>é o custo da maioria dos ajustes de hábito — trocar horário de uso, desligar em standby, aproveitar luz natural.</p>
+      </div>
+      <div class="stat">
+        <div class="num">1 rua</div>
+        <p>que troca lâmpadas e revê consumo em conjunto negocia melhor manutenção e reduz gasto público de iluminação.</p>
+      </div>
+    </div>
+    <p class="stat-note">Valores de referência para orientar decisões domésticas; a proporção exata varia com o tipo de casa, os aparelhos e a tarifa da distribuidora local.</p>
+  </div>
+</section>
+
+<section id="eficiencia">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Eficiência energética: por onde começar</h2>
+      <span class="tag">Do mais simples ao mais trabalhoso</span>
+    </div>
+    <div class="checklist">
+      <div class="check-item">
+        <span class="check-num">01</span>
+        <div>
+          <h3>Tire os aparelhos do modo standby</h3>
+          <p>TV, roteador, carregador e micro-ondas consomem mesmo desligados no controle. Uma régua com botão físico resolve em um fim de semana.</p>
+        </div>
+        <span class="check-impact">Custo zero</span>
+      </div>
+      <div class="check-item">
+        <span class="check-num">02</span>
+        <div>
+          <h3>Ajuste o chuveiro para o clima do dia</h3>
+          <p>A posição "verão" já é suficiente na maior parte do ano no bairro. Trocar só nos dias mais frios reduz bastante o consumo do equipamento que mais pesa na conta.</p>
+        </div>
+        <span class="check-impact">Custo zero</span>
+      </div>
+      <div class="check-item">
+        <span class="check-num">03</span>
+        <div>
+          <h3>Aproveite a luz e a ventilação natural da casa</h3>
+          <p>Abrir cortinas de manhã e organizar os cômodos mais usados perto das janelas adia a hora de acender lâmpadas e ligar ventilador.</p>
+        </div>
+        <span class="check-impact">Custo zero</span>
+      </div>
+      <div class="check-item">
+        <span class="check-num">04</span>
+        <div>
+          <h3>Troque lâmpadas antigas por LED, começando pelos cômodos mais usados</h3>
+          <p>Cozinha e sala costumam ficar acesas mais horas por dia — é onde a troca se paga primeiro.</p>
+        </div>
+        <span class="check-impact">Investimento baixo</span>
+      </div>
+      <div class="check-item">
+        <span class="check-num">05</span>
+        <div>
+          <h3>Revise a vedação de portas e janelas</h3>
+          <p>Frestas fazem o ar-condicionado ou o ventilador trabalhar mais para manter a temperatura. Uma borracha de vedação simples já ajuda.</p>
+        </div>
+        <span class="check-impact">Investimento baixo</span>
+      </div>
+      <div class="check-item">
+        <span class="check-num">06</span>
+        <div>
+          <h3>Ao trocar geladeira ou máquina de lavar, compare o selo de eficiência</h3>
+          <p>Não é para trocar um aparelho que funciona — mas quando chegar a hora, o selo A do Procel/Inmetro indica o que vai pesar menos na conta pelos próximos anos.</p>
+        </div>
+        <span class="check-impact">Na próxima troca</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="consciente">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Consumo consciente no dia a dia</h2>
+      <span class="tag">Além da energia elétrica</span>
+    </div>
+    <div class="split">
+      <div class="split-col">
+        <h3>Antes de comprar</h3>
+        <ul>
+          <li><strong>Pergunte se precisa ser novo.</strong> Grupos de troca e bazares do bairro resolvem boa parte do que parece necessidade de compra.</li>
+          <li><strong>Prefira consertar a substituir.</strong> Um eletricista ou assistência técnica de bairro geralmente cobra menos que um produto novo.</li>
+          <li><strong>Compre o tamanho certo de comida.</strong> Planejar as refeições da semana reduz desperdício e volta de embalagem no lixo.</li>
+          <li><strong>Leve a própria sacola e a própria garrafa.</strong> Pequeno hábito, mas que soma rápido em um bairro inteiro.</li>
+        </ul>
+      </div>
+      <div class="split-col consciente">
+        <h3>No uso diário</h3>
+        <ul>
+          <li><strong>Separe o que pode ser reciclado</strong> e verifique o dia de coleta seletiva da sua rua — muita coisa acaba misturada por falta dessa informação.</li>
+          <li><strong>Reaproveite a água</strong> da máquina de lavar ou do banho para lavar calçada e regar plantas.</li>
+          <li><strong>Composte o resíduo orgânico</strong> se tiver quintal, ou leve a um ponto de coleta comunitário, se houver um perto de você.</li>
+          <li><strong>Doe o que ainda serve</strong> antes de descartar — roupas, móveis e eletrônicos têm sempre alguém que precisa no bairro.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="medidor" class="no-border">
+  <div class="wrap">
+    <div class="medidor-block">
+      <div class="medidor-copy">
+        <span class="tag">Leia sua própria conta</span>
+        <h2>O medidor de luz conta uma história — vale aprender a ler.</h2>
+        <p>O consumo é medido em kWh (quilowatt-hora). Cada aparelho tem uma potência, em watts, indicada numa etiqueta ou no manual. Multiplicando a potência pelo tempo de uso, dá para estimar quanto ele pesa na conta antes mesmo de ela chegar.</p>
+        <p>Comparar dois meses seguidos da própria conta é o jeito mais simples de perceber se um hábito novo — ou um aparelho novo — realmente fez diferença.</p>
+        <a href="#simulador" class="btn btn-primary">Testar no simulador</a>
+      </div>
+      <svg viewBox="0 0 320 260" width="100%">
+        <circle cx="160" cy="130" r="105" fill="none" stroke="#4C7359" stroke-width="18"/>
+        <path d="M 160 25 A 105 105 0 0 1 255 175" fill="none" stroke="var(--sol)" stroke-width="18" stroke-linecap="round"/>
+        <line x1="160" y1="130" x2="220" y2="70" stroke="#F7F3E8" stroke-width="4"/>
+        <circle cx="160" cy="130" r="8" fill="#F7F3E8"/>
+        <text x="160" y="220" text-anchor="middle" fill="#F7F3E8" font-family="Fraunces, serif" font-size="22" font-weight="600">kWh</text>
+        <text x="70" y="160" text-anchor="middle" fill="#D9E5D5" font-family="Archivo, sans-serif" font-size="12">baixo</text>
+        <text x="250" y="160" text-anchor="middle" fill="#D9E5D5" font-family="Archivo, sans-serif" font-size="12">alto</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="simulador">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Simulador rápido</h2>
+      <span class="tag">Estimativa aproximada — não substitui a conta real</span>
+    </div>
+    <div class="sim">
+      <div>
+        <label for="tempo">Tempo de chuveiro elétrico por banho</label>
+        <input type="range" id="tempo" min="3" max="20" value="10">
+        <div class="valor"><span id="tempoValor">10</span> minutos</div>
+        <p style="font-size:0.85rem;color:var(--ink-soft);margin-top:16px;">Considerando um chuveiro de 5.500 W na posição verão, uso diário e tarifa média de R$ 0,80/kWh, só para efeito de comparação.</p>
+      </div>
+      <div class="sim-result">
+        <div class="label">Estimativa de gasto mensal só com o chuveiro</div>
+        <div class="big" id="resultado">R$ 66,00</div>
+        <div class="small">Reduzir 5 minutos por banho pode representar uma economia mensal só nesse aparelho — o resto da conta ainda inclui geladeira, iluminação e outros eletrodomésticos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="acoes" class="no-border">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Ações que fazem sentido em conjunto</h2>
+      <span class="tag">O que uma rua consegue fazer que uma casa sozinha não faz</span>
+    </div>
+    <div class="acoes-grid">
+      <div class="acao">
+        <svg class="icon" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15" fill="none" stroke="var(--verde-deep)" stroke-width="2"/><path d="M10 18 L15 23 L24 12" fill="none" stroke="var(--verde-deep)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Mutirão de troca de lâmpadas</h3>
+        <p>Reunir vizinhos para comprar LED em quantidade sai mais barato por unidade e ajuda quem tem menos condição de trocar sozinho.</p>
+      </div>
+      <div class="acao">
+        <svg class="icon" viewBox="0 0 34 34"><rect x="5" y="9" width="24" height="18" fill="none" stroke="var(--azul)" stroke-width="2" rx="2"/><path d="M5 12 L17 20 L29 12" fill="none" stroke="var(--azul)" stroke-width="2"/></svg>
+        <h3>Grupo de avisos do bairro</h3>
+        <p>Um grupo simples para avisar sobre quedas de energia, obras na rede ou horários de coleta seletiva evita retrabalho e desperdício.</p>
+      </div>
+      <div class="acao">
+        <svg class="icon" viewBox="0 0 34 34"><path d="M17 4 L28 11 V23 L17 30 L6 23 V11 Z" fill="none" stroke="var(--sol-deep)" stroke-width="2" stroke-linejoin="round"/></svg>
+        <h3>Ponto de troca e doação</h3>
+        <p>Um local fixo — a associação de moradores, uma praça, um comércio parceiro — para deixar e pegar o que ainda serve, sem precisar jogar fora.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid footer-grid-2">
+      <div>
+        <h4>Energia do Bairro</h4>
+        <p>Um material educativo comunitário sobre eficiência energética e consumo consciente. Adapte os números para a realidade da sua rua ou associação de moradores.</p>
+      </div>
+      <div>
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#por-que">Por que importa</a></li>
+          <li><a href="#eficiencia">Eficiência energética</a></li>
+          <li><a href="#consciente">Consumo consciente</a></li>
+          <li><a href="#acoes">Ações no bairro</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Conteúdo educativo de referência — os valores de consumo são estimativas.</span>
+      <span>Feito para o bairro, pelo bairro.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const tempo = document.getElementById('tempo');
+  const tempoValor = document.getElementById('tempoValor');
+  const resultado = document.getElementById('resultado');
+
+  function calcular(){
+    const minutos = parseInt(tempo.value, 10);
+    tempoValor.textContent = minutos;
+    // 5.500 W chuveiro, 1 banho/dia, 30 dias, tarifa R$0,80/kWh
+    const kwhPorBanho = (5500/1000) * (minutos/60);
+    const custoMensal = kwhPorBanho * 30 * 0.80;
+    resultado.textContent = 'R$ ' + custoMensal.toFixed(2).replace('.', ',');
+  }
+  tempo.addEventListener('input', calcular);
+  calcular();
+</script>
+
+</body>
+</html>
